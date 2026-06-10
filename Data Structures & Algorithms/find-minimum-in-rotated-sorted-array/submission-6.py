@@ -1,17 +1,21 @@
+
+# [3,4,5,6,1,2]
+#      ^ ->
+# [5,1,2,3,4]  
+#      ^
+# Time: O(logn)
+# Space: O(1)  
+#
 class Solution:
-    # [6,1,2,3,4,5]
     def findMin(self, nums: List[int]) -> int:
-        l, r = 0, len(nums) - 1
+        if not nums:
+            raise ValueError("nums can't be empty")
 
-        lowest = float('inf')
-        while l <= r:
-            m = (l + r) // 2
-            lowest = min(lowest, nums[m])
-
-            if nums[m] >= nums[r]:
-                l = m+1
+        start, end = 0, len(nums) - 1
+        while start < end:
+            mid = (start + end) // 2
+            if nums[mid] < nums[end]:
+                end = mid
             else:
-                r = m-1
-        
-        return int(lowest)
-            
+                start = mid+1
+        return nums[start]
